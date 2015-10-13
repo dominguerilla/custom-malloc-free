@@ -1,10 +1,8 @@
-#ifndef MAX_SIZE
+#include <stdio.h>
+#include <stdlib.h>
+#include <stddef.h>
 #define MAX_SIZE 5000
-#endif
-
-#ifndef LARGE_CHUNK_SIZE
 #define LARGE_CHUNK_SIZE 100
-#endif
 
 #define malloc my_malloc
 #define free my_free

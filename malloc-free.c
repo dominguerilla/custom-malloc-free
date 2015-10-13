@@ -1,15 +1,11 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <stddef.h>
 #include "malloc-free.h"
-#define MAX_SIZE 5000
 
 static unsigned int front_index;
 static unsigned int rear_index = MAX_SIZE;
 static char memory[MAX_SIZE];
+static unsigned int bytes_used;
 
 void* my_malloc(size_t t){
-	static unsigned int bytes_used;
 	printf("my_malloc!\n");
 	if(bytes_used >= MAX_SIZE){
 		printf("Out of memory!\n");
@@ -48,7 +44,7 @@ void* my_malloc(size_t t){
 void my_free(void* ptr){
 	printf("my_free!\n");
 	void* prev = ptr-1;
-	int size = (int) *prev;
+	int size = *((int*)prev);
 	int i = 0;
 	for(i = 0; i < size; i++){
 		memory[i] = '0';

@@ -1,8 +1,8 @@
-#include "malloc-free.c"
+#include "malloc-free.h"
 
 int main(){
 	char *x = malloc(sizeof(char));
 	x = "asd";
-	printf("%s", x);
+	printf("%s\n", x);
 	return 0;
 }

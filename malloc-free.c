@@ -8,6 +8,21 @@ static unsigned int front_index;
 static unsigned int rear_index = MAX_SIZE;
 static unsigned int bytes_used;
 
+/*
+* Given two addresses, the start of an array array_start and the position of some
+* value in the array, calculateOffset will return the offset (the 'index') of the
+* value in the array. So, if array[x] = value, this function returns x.
+*/
+int calculateOffset(void* array_start, void* value){
+	
+	return 0;
+}
+
+/*
+* allocate() is BLIND--in the sense that it will allocate memory in memory[] blindly.
+* The only method that should be calling this is malloc(), and so malloc() should
+* be the one to do error checking.
+*/
 void* allocate(int size, char IS_LARGE){
 	if(IS_LARGE == 'n'){
 		/*
@@ -99,14 +114,17 @@ void my_free(void* ptr){
 		printf("You did not malloc this pointer.\n");
 		return;
 	}
-
-
-	void* prev = ptr-1;
-	int size = *((int*)prev);
-	printf("the size of this pointer is %d\n", size);
 	
-	int i = 0;
-	for(i = 0; i < size; i++){
-		memory[i] = ' ';
-	}
+	/* For error 2, check the size_of_chunk array */
+
+	/* For error 3, check the is_alloc array */
+	
+	/* 
+	* To free the memory block,  free() must:
+	* 1. Update is_alloc 
+	* 2. Update size_of_chunk
+	* 	->For both of these, in order to find the corresponding entry,
+		  you have to calculate the offset of memory[0] and memory[wherever_this_pointer_is]
+	* 3. Update bytes_allocated
+	*/
 }

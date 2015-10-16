@@ -20,7 +20,7 @@ int calculateOffset(void* array_start, void* value){
 
 /*
 * allocate() is BLIND--in the sense that it will allocate memory in memory[] blindly.
-* The only method that should be calling this is malloc(), and so malloc() should
+* The only function that should be calling this is malloc(), and so malloc() should
 * be the one to do error checking.
 */
 void* allocate(int size, char IS_LARGE){
@@ -88,7 +88,7 @@ void* my_malloc(size_t t){
 
 	/* If the amount of memory to be allocated is considered 'small'*/
 	if(t < LARGE_CHUNK_SIZE){
-		if(front_index + t + 1 >= rear_index){
+		if(front_index + t >= rear_index){
 			printf("Not enough memory for this allocation.\n");
 			return NULL;
 		}
@@ -97,7 +97,7 @@ void* my_malloc(size_t t){
 
 	/* If the amount of memory to be allocated is considered 'large'*/
 	else{
-		if(MAX_SIZE - rear_index - t - 1 <= front_index){
+		if(MAX_SIZE - rear_index - t <= front_index){
 			printf("Not enough memory for this allocation.\n");
 			return NULL;
 		}
@@ -127,4 +127,5 @@ void my_free(void* ptr){
 		  you have to calculate the offset of memory[0] and memory[wherever_this_pointer_is]
 	* 3. Update bytes_allocated
 	*/
+
 }

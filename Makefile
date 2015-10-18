@@ -15,7 +15,7 @@ HDR=$(wildcard *.h)
 .PRECIOUS: $(TARGET) $(OBJ)
 
 $(TARGET): $(OBJ)
-	$(CC) $(OBJ) -Wall $(LIBS) -o $@
+	$(CC) $(OBJ) -g -Wall $(LIBS) -o $@
 
 clean:
 	-rm -f *.o

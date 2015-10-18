@@ -1,22 +1,13 @@
 #include "malloc-free.h"
 
-static char memory[MAX_SIZE] = {'x'};
-static char is_alloc[MAX_SIZE] = {'0'};
-static int size_of_chunk[MAX_SIZE] = {0};
+static char memory[MAX_SIZE];
+static char is_alloc[MAX_SIZE];
+static int size_of_chunk[MAX_SIZE];
 
 static unsigned int front_index;
 static unsigned int rear_index = MAX_SIZE;
 static unsigned int bytes_used;
 
-/*
-* Given two addresses, the start of an array array_start and the position of some
-* value in the array, calculateOffset will return the offset (the 'index') of the
-* value in the array. So, if array[x] = value, this function returns x.
-*/
-int calculateOffset(void* array_start, void* value){
-	
-	return 0;
-}
 
 /*
 * allocate() is BLIND--in the sense that it will allocate memory in memory[] blindly.
@@ -31,6 +22,7 @@ void* allocate(int size, char IS_LARGE){
 		*
 		*/
 		bytes_used = bytes_used + size;
+		printf("bytes_used: %d\n", bytes_used);
 		size_of_chunk[front_index] = size;
 		int i;
 		for(i = front_index; i < size; i++){
@@ -71,7 +63,6 @@ void* allocate(int size, char IS_LARGE){
 }
 
 void* my_malloc(size_t t){
-	printf("size_t: %zd\n", t);
 	/* If there is no more memory...*/
 	if(bytes_used >= MAX_SIZE){
 		printf("Out of memory!\n");
@@ -106,7 +97,10 @@ void* my_malloc(size_t t){
 }
 
 void my_free(void* ptr){
-	/*Freeing pointer that was never malloc'd
+	printf("Address of ptr: %p\n", ptr);
+	printf("Address of memory[0]: %p\n", memory);
+	/*
+	* Freeing pointer that was never malloc'd
 	* means that the address of that pointer is not
 	* within range of memory[0] and memory[MAX_SIZE-1]
 	*/
@@ -121,11 +115,50 @@ void my_free(void* ptr){
 	
 	/* 
 	* To free the memory block,  free() must:
-	* 1. Update is_alloc 
-	* 2. Update size_of_chunk
+	* 1. Update char is_alloc 
+	* 2. Update int size_of_chunk
 	* 	->For both of these, in order to find the corresponding entry,
-		  you have to calculate the offset of memory[0] and memory[wherever_this_pointer_is]
+		  you have to calculate the byte offset of memory[0] and 
+		  memory[wherever_this_pointer_is]
+		->Then, the corresponding entry in is_alloc is is_alloc[offset]
+		->In size_of_chunk, it should be size_of_chunk[offset]
 	* 3. Update bytes_allocated
 	*/
+	int offset = sizeof(*ptr) - sizeof(memory[0]);
+	printf("Offset: %d\n", offset);
+	int iter = offset;
+	int size_of_ptr = size_of_chunk[offset];
+	/* (1) */
+	int i;
+	for(i = 0; i < size_of_ptr; i++){
+		is_alloc[iter] = '0';
+		iter++;
+	}
+	/* (3) */
+	bytes_used = bytes_used - size_of_chunk[offset];
+	/* (2) */
+	size_of_chunk[offset] = 0;
 
+}
+
+void print_memory(){
+	int i;
+	printf("Memory:{ ");
+	for(i = 0; i < MAX_SIZE; i++){
+		printf("%c ", memory[i]);
+	}
+	printf("}\n");
+
+	printf("is_alloc:{ ");
+	for(i = 0; i < MAX_SIZE; i++){
+		printf("%c ", is_alloc[i]);
+	}
+	printf("}\n");
+	
+	printf("size_of_chunk:{ ");
+	for(i = 0; i < MAX_SIZE; i++){
+		printf("%d ", size_of_chunk[i]);
+	}
+	printf("}\n");
+	
 }

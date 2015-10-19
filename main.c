@@ -1,23 +1,30 @@
 #include "malloc-free.h"
 
 typedef struct test_struct{
-	int integer;
 	char character;
-	float floatnum;
 } *Test;
 
 int main(){
 	
 
-	Test test = malloc(sizeof(Test));
-	printf("Size of test_struct %d\n", (int)sizeof(Test));
-	test->integer = 5;
-	printf("Test int: %d\n", test->integer);
+
+	/*FREE-ING TESTS*/
+	int *test;
 	
-	
-	printf("Attempting to free...\n");
+	printf("Case 1 free...\n");
 	free(test);
-	printf("Freed.\n");
+	test = malloc(sizeof(int)*15);
+	printf("\n\n\n\n\n");
+	
+	printf("Case 2 free...\n");
+	free(test + 5);
+	printf("\n\n\n\n\n");
+
+	printf("Case 3 free...\n");
+	free(test);
+	free(test);
+	printf("\n\n\n\n\n");
+	
 
 	return 0;
 }

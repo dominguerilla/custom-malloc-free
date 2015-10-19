@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
-#define MAX_SIZE 10
-#define LARGE_CHUNK_SIZE 100
+#define MAX_SIZE 100
+#define LARGE_CHUNK_SIZE 10
 
 #define malloc my_malloc
 #define free my_free

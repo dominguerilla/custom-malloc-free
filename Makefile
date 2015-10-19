@@ -1,22 +1,20 @@
-TARGET=proj3
 FLAGS=-g -Wall
 LIBS=-lm
 CC=gcc
 
-default: $(TARGET)
-all: default
 
-OBJ=$(patsubst %.c, %.o, $(wildcard *.c))
-HDR=$(wildcard *.h)
+OBJ=malloc-free.c
+HDR=malloc-free.h
 
-%.o: %.c $(HDR)
-	$(CC) $(FLAGS) -c $< -o $@
+prog1: $(OBJ) $(HDR)
+	$(CC) prog1.c $(OBJ) $(FLAGS) $(LIBS) -o prog1
 
-.PRECIOUS: $(TARGET) $(OBJ)
+prog2: $(OBJ) $(HDR)
+	$(CC) prog2.c $(OBJ) $(FLAGS) $(LIBS) -o prog2
 
-$(TARGET): $(OBJ)
-	$(CC) $(OBJ) -g -Wall $(LIBS) -o $@
-
+prog3: $(OBJ) $(HDR)
+	$(CC) prog3.c $(OBJ) $(FLAGS) $(LIBS) -o prog3
 clean:
 	-rm -f *.o
-	-rm -f $(TARGET)
+	-rm -f prog1
+	-rm -f prog2

@@ -1,11 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stddef.h>
-#define MAX_SIZE 100
-#define LARGE_CHUNK_SIZE 10
+#define MAX_SIZE 5000
+#define LARGE_CHUNK_SIZE 150
 
-#define malloc my_malloc
-#define free my_free
+#define malloc(x) my_malloc(x, __FILE__, __LINE__)
+#define free(x) my_free(x, __FILE__, __LINE__)
 
-void* my_malloc(size_t size);
-void my_free(void* ptr);
+void* my_malloc(size_t size, char *_file, int line);
+void my_free(void* ptr, char *_file, int line);
+void print_ptr_infoo(void* ptr, int offset);
+int checkForRoom(int index, int size, int isRear );

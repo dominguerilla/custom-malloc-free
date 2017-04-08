@@ -8,7 +8,7 @@ typedef struct test_struct{
 
 int main(){
 	
-
+	// make simple link list without assign data, allocating the memory address
 	Test test = malloc(sizeof(Test));
 	printf("Size of test_struct %d\n", (int)sizeof(Test));
 	test->integer = 5;
